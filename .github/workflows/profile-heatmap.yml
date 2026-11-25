@@ -1,0 +1,58 @@
+name: Refresh profile heatmap
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "README.md"
+      - "scripts/fetch-contributions.mjs"
+      - "scripts/embed-local-contributions.mjs"
+      - "scripts/build-heatmap-svg.mjs"
+      - ".github/workflows/profile-heatmap.yml"
+  schedule:
+    # Daily at 05:30 UTC, before the Pages deploy at 06:00
+    - cron: "30 5 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: profile-heatmap
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # Optional read:user token includes shared private contribution counts.
+      # The token stays in Actions secrets and is never written to the site.
+      - name: Fetch contributions
+        env:
+          GH_USERNAME: ${{ github.repository_owner }}
+          GH_TOKEN: ${{ secrets.PROFILE_GITHUB_TOKEN }}
+        run: node scripts/fetch-contributions.mjs
+
+      - name: Build local contribution fallback
+        run: node scripts/embed-local-contributions.mjs
+
+      - name: Render heatmap SVG
+        run: node scripts/build-heatmap-svg.mjs
+
+      - name: Commit if changed
+        run: |
+          git add site/data/contributions.json site/assets/js/local-heatmap.js assets/contribution-snake.svg
+          if git diff --cached --quiet; then
+            echo "No changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore: refresh contribution heatmap"
+          git push

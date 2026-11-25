@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Resume — Ashish Raunak</title>
+  <meta name="description" content="Resume of Ashish Raunak, BCA student at Marwadi University.">
+  <meta name="theme-color" content="#10070C">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Geist:wght@300..700&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <style>
+    @layer sections {
+      body { padding-block: var(--space-xl) var(--space-3xl); }
+      body::after { display: none; }
+      .bar { display:flex; flex-wrap:wrap; gap:var(--space-s); justify-content:space-between; align-items:center; margin-bottom:var(--space-xl); }
+      .sheet { padding:clamp(1.25rem,4vw,3.5rem); border:1px solid var(--line); border-radius:var(--radius-l); background:linear-gradient(180deg,var(--ink-900),var(--ink-950)); box-shadow:var(--shadow-2); }
+      .r-head { display:grid; gap:.6rem; padding-bottom:var(--space-l); border-bottom:1px solid var(--line-strong); }
+      .r-head h1 { font-family:var(--font-display); font-size:var(--step-4); font-weight:300; letter-spacing:-.035em; }
+      .r-head h1 em { color:var(--rose-300); }
+      .r-head .role { color:var(--text-muted); }
+      .r-links { display:flex; flex-wrap:wrap; gap:.4rem 1.4rem; list-style:none; padding:0; font-size:var(--step--1); }
+      .r-links a { color:var(--rose-200); }
+      .r-sec { display:grid; grid-template-columns:11rem 1fr; gap:var(--space-l); padding-block:var(--space-l); border-bottom:1px solid var(--line); }
+      .r-sec:last-child { border-bottom:0; }
+      .r-sec > h2 { font-family:var(--font-mono); font-size:var(--step--2); letter-spacing:.16em; text-transform:uppercase; color:var(--accent); padding-top:.3rem; }
+      .r-item + .r-item { margin-top:var(--space-m); }
+      .r-item__top { display:flex; flex-wrap:wrap; justify-content:space-between; gap:.2rem 1rem; }
+      .r-item h3 { font-size:var(--step-0); font-weight:600; line-height:1.4; }
+      .r-item .meta { font-family:var(--font-mono); font-size:var(--step--2); color:var(--text-muted); }
+      .r-item .sub { color:var(--rose-200); font-size:var(--step--1); }
+      .r-skills { display:grid; gap:.35rem; font-size:var(--step--1); color:var(--text-muted); }
+      .r-skills b { color:var(--ivory); font-weight:500; }
+      .r-note { margin-top:var(--space-l); font-size:var(--step--2); color:var(--faint); font-family:var(--font-mono); }
+      @media(max-width:680px) { .r-sec { grid-template-columns:1fr; gap:.6rem; } }
+      @media print {
+        @page { margin:14mm; }
+        body { background:#fff; color:#111; padding:0; font-size:10.5pt; }
+        .bar,.r-note { display:none; }
+        .sheet { border:0; padding:0; box-shadow:none; background:none; }
+        .r-sec { break-inside:avoid; padding-block:.6rem; }
+        a { color:inherit !important; }
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="container" style="max-width:920px">
+    <div class="bar"><a class="btn btn--ghost btn--small" href="./">← Back to portfolio</a><button class="btn btn--primary btn--small" type="button" onclick="window.print()">Save as PDF / Print</button></div>
+    <article class="sheet">
+      <header class="r-head">
+        <h1>Ashish <em>Raunak</em></h1>
+        <p class="role">Final-year BCA student · Aspiring Software Developer · Web Development Enthusiast</p>
+        <ul class="r-links">
+          <li><a href="mailto:ashishraunksmp@gmail.com">ashishraunksmp@gmail.com</a></li>
+          <li><a href="https://github.com/AshishRaunakThakur">github.com/AshishRaunakThakur</a></li>
+          <li><a href="https://www.linkedin.com/in/ashish-raunak-6b670734b/">LinkedIn · Ashish Raunak</a></li>
+          <li><a href="https://ashishraunak.vercel.app">Portfolio</a></li>
+        </ul>
+      </header>
+      <section class="r-sec"><h2>Education</h2><div class="r-item"><div class="r-item__top"><h3>Marwadi University, Rajkot</h3><span class="meta">2024 – 2027</span></div><p class="sub">Bachelor of Computer Applications (BCA) · Expected graduation 2027</p></div></section>
+      <section class="r-sec"><h2>Skills</h2><div class="r-skills"><p><b>Languages:</b> C, Python, PHP, Java, C#</p><p><b>Web:</b> HTML, CSS, JavaScript</p><p><b>Frameworks:</b> Flask, Laravel</p><p><b>Databases:</b> MySQL, SQLite3, DBMS</p><p><b>Application development:</b> Flutter, Kotlin</p></div></section>
+      <section class="r-sec"><h2>Projects</h2><div>
+        <div class="r-item"><div class="r-item__top"><h3>Study Planner</h3><span class="meta">Academic project</span></div><p class="sub">Python · HTML · CSS · JavaScript · SQLite3</p><p>Organizes subjects, study schedules, and daily learning activities.</p></div>
+        <div class="r-item"><div class="r-item__top"><h3>ExamVision</h3><span class="meta">Academic project</span></div><p class="sub">Python · JavaScript · HTML · CSS · MySQL</p><p>MCQ practice and online assessments for students.</p></div>
+        <div class="r-item"><div class="r-item__top"><h3>Asmeera Lifeline</h3><span class="meta">Personal project</span></div><p class="sub">PHP · MySQL · JavaScript · Maps</p><p>Connects people seeking help with volunteers and NGOs.</p></div>
+        <div class="r-item"><div class="r-item__top"><h3>Academic Record System</h3><span class="meta">Academic project</span></div><p class="sub">HTML · CSS · JavaScript · File Handling</p><p>Manages academic information with web technologies and file handling.</p></div>
+        <div class="r-item"><div class="r-item__top"><h3>MU Lost &amp; Found</h3><span class="meta">Campus project</span></div><p class="sub">Web Development · JavaScript · Campus</p><p>A campus project for reporting and finding lost belongings.</p></div>
+        <div class="r-item"><div class="r-item__top"><h3>MU Event Hub</h3><span class="meta">Academic project</span></div><p class="sub">Web Development · JavaScript · Database</p><p>A university event platform for sharing and managing event information.</p></div>
+        <div class="r-item"><div class="r-item__top"><h3>Ashmeera Empoweres</h3><span class="meta">Personal project</span></div><p class="sub">Python · Flask · HTML · CSS</p><p>A Flask web app and hands-on Python web development project.</p></div>
+        <div class="r-item"><div class="r-item__top"><h3>Campus Cleaning</h3><span class="meta">Academic project</span></div><p class="sub">PHP · Laravel · MySQL</p><p>Campus cleaning management with Laravel and database functionality.</p></div>
+      </div></section>
+      <section class="r-sec"><h2>Profile</h2><div><p>Final-year BCA student at Marwadi University, Rajkot. Learning through academic and personal projects in frontend, backend, application development, and database management.</p></div></section>
+    </article>
+    <p class="r-note">Use “Save as PDF / Print” to download a copy.</p>
+  </main>
+</body>
+</html>

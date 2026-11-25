@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Ashish Raunak — Student and Builder</title>
+  <meta name="description" content="Ashish Raunak — final-year BCA student at Marwadi University, Rajkot. Learning by building academic and personal projects.">
+  <meta name="author" content="Ashish Raunak">
+  <meta name="theme-color" content="#10070C">
+  <meta property="og:type" content="profile">
+  <meta property="og:title" content="Ashish Raunak — Student and Builder">
+  <meta property="og:description" content="Learning by building. BCA student at Marwadi University, Rajkot.">
+  <meta property="og:image" content="assets/img/ashish-photo.png">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" as="image" href="assets/img/ashish-photo.png" fetchpriority="high">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,200..700,0..100,0..1;1,9..144,200..700,0..100,0..1&family=Geist:wght@300..700&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/sections.css">
+  <script>
+    if (location.protocol === "file:") {
+      // Show the portfolio even when opened directly from File Explorer.
+      document.documentElement.classList.add("no-intro");
+    } else {
+      document.documentElement.classList.add("js");
+    }
+  </script>
+  <script type="module" src="assets/js/main.js"></script>
+  <script defer src="assets/js/local-heatmap.js"></script>
+  <script>
+    if (location.protocol === "file:") {
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll("[data-reveal], .contact__title, .signature, .case, .principle").forEach((element) => {
+          element.classList.add("is-in");
+        });
+        document.querySelectorAll(".case__toggle").forEach((button) => {
+          button.addEventListener("click", () => {
+            const panel = document.getElementById(button.getAttribute("aria-controls"));
+            const open = button.getAttribute("aria-expanded") !== "true";
+            button.setAttribute("aria-expanded", String(open));
+            panel?.classList.toggle("is-open", open);
+          });
+        });
+        const toggle = document.querySelector("[data-menu-toggle]");
+        const menu = document.querySelector("[data-menu]");
+        const closeMenu = () => {
+          if (!toggle || !menu) return;
+          menu.classList.remove("is-open");
+          menu.hidden = true;
+          toggle.setAttribute("aria-expanded", "false");
+        };
+        toggle?.addEventListener("click", () => {
+          const open = toggle.getAttribute("aria-expanded") !== "true";
+          toggle.setAttribute("aria-expanded", String(open));
+          menu.hidden = !open;
+          menu.classList.toggle("is-open", open);
+        });
+        menu?.querySelectorAll("a").forEach((link) => link.addEventListener("click", closeMenu));
+
+        if (matchMedia("(hover: hover) and (pointer: fine)").matches) {
+          document.querySelectorAll("[data-tilt]").forEach((element) => {
+            const target = element.classList.contains("portrait")
+              ? element.querySelector(".portrait__frame")
+              : element;
+            const max = element.classList.contains("portrait") ? 6 : 7;
+            element.addEventListener("pointermove", (event) => {
+              const box = element.getBoundingClientRect();
+              const x = (event.clientX - box.left) / box.width;
+              const y = (event.clientY - box.top) / box.height;
+              target.style.setProperty("--ry", `${(x - 0.5) * max * 2}deg`);
+              target.style.setProperty("--rx", `${(0.5 - y) * max * 2}deg`);
+            });
+            element.addEventListener("pointerleave", () => {
+              target.style.setProperty("--rx", "0deg");
+              target.style.setProperty("--ry", "0deg");
+            });
+          });
+        }
+      });
+    }
+  </script>
+  <style>
+    @layer sections {
+      .project-art { position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; align-items:flex-start; padding:clamp(1.5rem,5vw,4rem); background:radial-gradient(ellipse at 80% 15%,rgba(216,140,168,.22),transparent 48%),linear-gradient(135deg,#27101c,#10070c); }
+      .project-art strong { font-family:var(--font-display); font-size:clamp(2rem,5vw,4rem); font-weight:300; line-height:1.05; max-width:10ch; }
+      .project-art__index,.project-art small { font-family:var(--font-mono); font-size:.68rem; letter-spacing:.14em; color:var(--rose-200); text-transform:uppercase; }
+      .project-art__line { width:4rem; height:1px; background:var(--rose-300); margin:1.2rem 0; }
+      .case__metrics b { font-family:var(--font-mono); font-size:var(--step--2); font-weight:400; line-height:1.3; letter-spacing:0; }
+      .case__metrics li { align-content:center; }
+      .about__intro .lead { font-size:var(--step-2); }
+    }
+  </style>
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-ext" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M7 17 17 7M9 7h8v8"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M12 19V5M6 11l6-6 6 6"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></g></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></g></symbol>
+    <symbol id="i-github" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.56 9.56 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></symbol>
+    <symbol id="i-linkedin" viewBox="0 0 24 24"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></symbol>
+  </svg>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="intro" aria-hidden="true"><svg class="intro__mark" viewBox="0 0 120 120"><circle cx="60" cy="60" r="54"/><text x="60" y="74" text-anchor="middle">AR</text></svg></div>
+  <div class="scroll-progress" aria-hidden="true"><span></span></div>
+  <header class="nav" data-nav>
+    <div class="nav__inner container">
+      <a class="nav__brand" href="#top" aria-label="Ashish Raunak — back to top"><svg class="nav__mono" viewBox="0 0 40 40" aria-hidden="true"><rect x="1" y="1" width="38" height="38" rx="11"/><text x="20" y="26.5" text-anchor="middle">AR</text></svg><span class="nav__name">Ashish Raunak</span></a>
+      <nav class="nav__links" aria-label="Primary"><ul role="list"><li><a href="#about" data-navlink>About</a></li><li><a href="#projects" data-navlink>Projects</a></li><li><a href="#skills" data-navlink>Skills</a></li><li><a href="#journey" data-navlink>Journey</a></li><li><a href="#contact" data-navlink>Contact</a></li></ul></nav>
+      <a class="btn btn--ghost btn--small nav__cta" href="resume.html">Resume</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" data-menu-toggle><span class="visually-hidden">Open menu</span><span class="nav__burger" aria-hidden="true"><i></i><i></i></span></button>
+    </div>
+    <div class="mobile-menu" id="mobile-menu" data-menu hidden><nav aria-label="Mobile"><ol role="list"><li style="--i:0"><a href="#about"><span class="mono">01</span>About</a></li><li style="--i:1"><a href="#projects"><span class="mono">02</span>Projects</a></li><li style="--i:2"><a href="#skills"><span class="mono">03</span>Skills</a></li><li style="--i:3"><a href="#journey"><span class="mono">04</span>Journey</a></li><li style="--i:4"><a href="#contact"><span class="mono">05</span>Contact</a></li></ol></nav><div class="mobile-menu__foot"><a class="btn btn--primary" href="resume.html">View Resume</a><a class="mono link-u" href="mailto:ashishraunksmp@gmail.com">ashishraunksmp@gmail.com</a></div></div>
+  </header>
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-title" data-hero>
+      <div class="hero__bg" aria-hidden="true"><div class="hero__field hero__field--a"></div><div class="hero__field hero__field--b"></div><div class="hero__grid"></div><div class="hero__spot"></div><svg class="hero__orbits" viewBox="0 0 800 800" fill="none"><defs><linearGradient id="orb-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#D88CA8" stop-opacity=".55"/><stop offset="1" stop-color="#6E1738" stop-opacity="0"/></linearGradient></defs><g class="orbit orbit--1"><ellipse cx="400" cy="400" rx="370" ry="370" stroke="url(#orb-g)"/><circle cx="770" cy="400" r="3.5" fill="#D88CA8"/></g><g class="orbit orbit--2"><ellipse cx="400" cy="400" rx="290" ry="290" stroke="rgba(216,140,168,.14)" stroke-dasharray="2 8"/><circle cx="110" cy="400" r="2.5" fill="#F6EDF0"/></g><g class="orbit orbit--3"><ellipse cx="400" cy="400" rx="210" ry="210" stroke="rgba(216,140,168,.1)"/><circle cx="400" cy="190" r="2" fill="#D88CA8"/></g></svg></div>
+      <div class="hero__inner container"><div class="hero__copy"><p class="hero__status" data-reveal><span class="dot" aria-hidden="true"></span>BCA Student · Aspiring Software Developer · Web Development Enthusiast</p><p class="eyebrow" data-reveal>Learning through projects</p><h1 class="hero__title" id="hero-title"><span class="line-mask"><span>Ashish</span></span><span class="line-mask"><span class="italic">Raunak<span class="hero__period">.</span></span></span></h1><p class="hero__lede" data-reveal>I’m a <em>final-year BCA student</em> at Marwadi University, Rajkot. I learn by building academic and personal projects across web and application development.</p><div class="hero__ctas" data-reveal><a class="btn btn--primary" href="#projects" data-magnetic>Explore My Projects <svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></a><a class="btn btn--ghost" href="resume.html" data-magnetic>View Resume <svg aria-hidden="true"><use href="#i-ext"/></svg></a><a class="btn btn--ghost" href="https://ashishraunak.vercel.app" target="_blank" rel="noopener" data-magnetic>Vercel Portfolio <svg aria-hidden="true"><use href="#i-ext"/></svg></a></div><ul class="hero__social" role="list" data-reveal><li><a class="link-u" href="https://github.com/AshishRaunakThakur" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-github"/></svg>GitHub</a></li><li><a class="link-u" href="https://www.linkedin.com/in/ashish-raunak-6b670734b/" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-linkedin"/></svg>LinkedIn</a></li></ul></div>
+        <figure class="portrait" data-tilt><div class="portrait__frame"><div class="portrait__photo"><img src="assets/img/ashish-photo.png" width="1276" height="1233" alt="Portrait of Ashish Raunak" fetchpriority="high" decoding="async"></div><span class="portrait__corner portrait__corner--tl" aria-hidden="true"></span><span class="portrait__corner portrait__corner--br" aria-hidden="true"></span></div><figcaption class="portrait__meta"><span class="mono">Fig. 01</span><span class="mono">BCA · 2024–2027</span></figcaption><p class="portrait__chip portrait__chip--a glass" aria-hidden="true"><span class="mono">Marwadi University</span><b>Rajkot</b></p><p class="portrait__chip portrait__chip--b glass" aria-hidden="true"><span class="mono">Learning through</span><b>Projects</b></p></figure>
+      </div><a class="hero__scroll" href="#about" aria-label="Scroll to About"><span class="mono">Scroll</span><span class="hero__scroll-line" aria-hidden="true"></span></a><div class="ticker" aria-label="Highlights"><ul role="list" class="ticker__track"><li><b>2024–2027</b> BCA</li><li><b>8</b> academic and personal projects</li><li><b>15</b> technologies explored</li><li><b>Rajkot</b> Gujarat</li></ul></div>
+    </section>
+    <section class="section about" id="about" aria-labelledby="about-title"><div class="container"><header class="section-head"><p class="section-index" data-reveal><b>01</b> About</p><h2 class="section-title" id="about-title" data-reveal>Learning by <em>building.</em></h2></header><div class="about__grid"><div class="about__intro" data-reveal><p class="lead">Hi, I’m <strong>Ashish Raunak</strong>, a final-year BCA student at Marwadi University, Rajkot, with expected graduation in 2027.</p><p>I enjoy learning new technologies, exploring programming, and building projects that help me improve my practical skills. My interests include frontend, backend, application development, and database management.</p></div><ol class="principles" role="list"><li class="principle" data-reveal><span class="principle__n mono">i.</span><h3>Learn through practice</h3><p>I build academic and personal projects to improve my practical skills.</p></li><li class="principle" data-reveal><span class="principle__n mono">ii.</span><h3>Explore across the stack</h3><p>My projects span web development, application development, and database work.</p></li><li class="principle" data-reveal><span class="principle__n mono">iii.</span><h3>Keep building</h3><p>Each project is a chance to learn another tool and put it into practice.</p></li></ol></div><div class="about__lower"><dl class="facts" data-reveal><div><dt class="mono">Degree</dt><dd>Bachelor of Computer Applications</dd></div><div><dt class="mono">College</dt><dd>Marwadi University, Rajkot</dd></div><div><dt class="mono">Study period</dt><dd><span class="facts__big">2024–27</span></dd></div><div><dt class="mono">Location</dt><dd>Rajkot, Gujarat</dd></div></dl><div class="milestones" data-reveal><h3 class="mono milestones__title">Milestones</h3><ol class="milestones__list" role="list"><li><time class="mono">2024</time><p>Began BCA studies at Marwadi University.</p></li><li><time class="mono">2024–2027</time><p>Working toward a Bachelor of Computer Applications degree.</p></li><li><time class="mono">Projects</time><p>Built and explored eight academic and personal projects.</p></li></ol></div></div></div></section>
+    <section class="section activity" id="activity" aria-labelledby="activity-title">
+      <div class="container">
+        <header class="section-head">
+          <p class="section-index" data-reveal><b>02</b> Commit log</p>
+          <h2 class="section-title" id="activity-title" data-reveal>A year of building, <em>one square</em> at a time.</h2>
+        </header>
+        <div class="heatmap" data-heatmap data-reveal="fade">
+          <div class="heatmap__top">
+            <div class="heatmap__ranges" role="group" aria-label="Time range">
+              <button type="button" data-range="all" aria-pressed="true">Full year</button>
+              <button type="button" data-range="182" aria-pressed="false">6 months</button>
+              <button type="button" data-range="90" aria-pressed="false">90 days</button>
+            </div>
+            <p class="heatmap__source mono" data-heatmap-source>GitHub activity will appear after the first data refresh.</p>
+          </div>
+          <dl class="heatmap__stats" data-heatmap-stats aria-live="polite">
+            <div><dt class="mono">Contributions</dt><dd data-stat="total">—</dd></div>
+            <div><dt class="mono">Active days</dt><dd data-stat="active">—</dd></div>
+            <div><dt class="mono">Longest streak</dt><dd data-stat="streak">—</dd></div>
+            <div><dt class="mono">Busiest day</dt><dd data-stat="peak">—</dd></div>
+          </dl>
+          <div class="heatmap__scroller" data-heatmap-scroller>
+            <div class="heatmap__board">
+              <div class="heatmap__months" data-heatmap-months aria-hidden="true"></div>
+              <div class="heatmap__days mono" aria-hidden="true"><span>Mon</span><span>Wed</span><span>Fri</span></div>
+              <div class="heatmap__grid" data-heatmap-grid role="grid" aria-label="Daily GitHub contributions. Use arrow keys to move between days."></div>
+            </div>
+          </div>
+          <div class="heatmap__foot">
+            <p class="heatmap__readout" data-heatmap-readout aria-live="polite">Hover or focus a day to inspect it.</p>
+            <div class="heatmap__legend" aria-label="Activity levels: none, low, medium, high, highest"><span class="mono">Less</span><i data-l="0"></i><i data-l="1"></i><i data-l="2"></i><i data-l="3"></i><i data-l="4"></i><span class="mono">More</span></div>
+          </div>
+          <div class="heatmap__tip glass" data-heatmap-tip role="tooltip" hidden></div>
+          <p class="heatmap__readout" data-heatmap-empty>Real contributions load from your public GitHub profile when the site data refresh runs.</p>
+        </div>
+      </div>
+    </section>
+    <section class="section work" id="projects" aria-labelledby="projects-title"><div class="container"><header class="section-head"><p class="section-index" data-reveal><b>03</b> Selected work</p><h2 class="section-title" id="projects-title" data-reveal>Projects I’m learning <em>from.</em></h2><p class="section-lede" data-reveal>Academic and personal projects built while exploring web, application, and database development.</p></header>
+      <article class="case" data-reveal aria-labelledby="p1-title"><div class="case__visual" data-tilt aria-hidden="true"><div class="project-art"><span class="project-art__index">PROJECT 01</span><strong>Study Planner</strong><span class="project-art__line"></span><small>Python / SQLite3</small></div></div><div class="case__body"><p class="case__kicker mono"><span>01</span><span>Academic project</span></p><h3 class="case__title" id="p1-title">Study Planner<small class="case__sub">Python · HTML · CSS · JavaScript · SQLite3</small></h3><p class="case__problem">Organizes subjects, study schedules, and daily learning activities.</p><ul class="case__metrics" role="list"><li><b>Python</b><span>Language</span></li><li><b>SQLite3</b><span>Database</span></li><li><b>Web</b><span>Interface</span></li></ul><button class="case__toggle" type="button" aria-expanded="false" aria-controls="p1-more"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg> Case study</button><div class="case__more" id="p1-more" data-collapsible><div><h4>Project overview</h4><ul><li>Organizes subjects and study schedules.</li><li>Supports daily learning activities.</li></ul></div></div></div></article>
+      <article class="case case--flip" data-reveal aria-labelledby="p2-title"><div class="case__visual" data-tilt aria-hidden="true"><div class="project-art"><span class="project-art__index">PROJECT 02</span><strong>ExamVision</strong><span class="project-art__line"></span><small>Python / MySQL</small></div></div><div class="case__body"><p class="case__kicker mono"><span>02</span><span>Academic project</span></p><h3 class="case__title" id="p2-title">ExamVision<small class="case__sub">Python · JavaScript · HTML · CSS · MySQL</small></h3><p class="case__problem">MCQ practice and online assessments for students.</p><ul class="case__metrics" role="list"><li><b>Python</b><span>Language</span></li><li><b>MySQL</b><span>Database</span></li><li><b>MCQ</b><span>Assessments</span></li></ul><button class="case__toggle" type="button" aria-expanded="false" aria-controls="p2-more"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg> Case study</button><div class="case__more" id="p2-more" data-collapsible><div><h4>Project overview</h4><ul><li>Provides MCQ practice for students.</li><li>Supports online assessments.</li></ul></div></div></div></article>
+      <article class="case" data-reveal aria-labelledby="p3-title"><div class="case__visual" data-tilt aria-hidden="true"><div class="project-art"><span class="project-art__index">PROJECT 03</span><strong>Asmeera Lifeline</strong><span class="project-art__line"></span><small>PHP / Maps</small></div></div><div class="case__body"><p class="case__kicker mono"><span>03</span><span>Personal project</span></p><h3 class="case__title" id="p3-title">Asmeera Lifeline<small class="case__sub">PHP · MySQL · JavaScript · Maps</small></h3><p class="case__problem">Connects people seeking help with volunteers and NGOs.</p><ul class="case__metrics" role="list"><li><b>PHP</b><span>Language</span></li><li><b>MySQL</b><span>Database</span></li><li><b>Maps</b><span>Location</span></li></ul><button class="case__toggle" type="button" aria-expanded="false" aria-controls="p3-more"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg> Case study</button><div class="case__more" id="p3-more" data-collapsible><div><h4>Project overview</h4><ul><li>Connects people seeking help with volunteers.</li><li>Includes NGOs and map-related functionality.</li></ul></div></div></div></article>
+      <article class="case case--flip" data-reveal aria-labelledby="p4-title"><div class="case__visual" data-tilt aria-hidden="true"><div class="project-art"><span class="project-art__index">PROJECT 04</span><strong>Academic Record System</strong><span class="project-art__line"></span><small>JavaScript / File Handling</small></div></div><div class="case__body"><p class="case__kicker mono"><span>04</span><span>Academic project</span></p><h3 class="case__title" id="p4-title">Academic Record System<small class="case__sub">HTML · CSS · JavaScript · File Handling</small></h3><p class="case__problem">Manages academic information with web technologies and file handling.</p><ul class="case__metrics" role="list"><li><b>HTML</b><span>Interface</span></li><li><b>JavaScript</b><span>Logic</span></li><li><b>Files</b><span>Handling</span></li></ul><button class="case__toggle" type="button" aria-expanded="false" aria-controls="p4-more"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg> Case study</button><div class="case__more" id="p4-more" data-collapsible><div><h4>Project overview</h4><ul><li>Manages academic information.</li><li>Uses web technologies and file handling.</li></ul></div></div></div></article>
+      <article class="case" data-reveal aria-labelledby="p5-title"><div class="case__visual" data-tilt aria-hidden="true"><div class="project-art"><span class="project-art__index">PROJECT 05</span><strong>MU Lost &amp; Found</strong><span class="project-art__line"></span><small>JavaScript / Campus</small></div></div><div class="case__body"><p class="case__kicker mono"><span>05</span><span>Campus project</span></p><h3 class="case__title" id="p5-title">MU Lost &amp; Found<small class="case__sub">Web Development · JavaScript · Campus</small></h3><p class="case__problem">A campus project for reporting and finding lost belongings.</p><ul class="case__metrics" role="list"><li><b>Campus</b><span>Community</span></li><li><b>JavaScript</b><span>Interaction</span></li><li><b>Web</b><span>Platform</span></li></ul><button class="case__toggle" type="button" aria-expanded="false" aria-controls="p5-more"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg> Case study</button><div class="case__more" id="p5-more" data-collapsible><div><h4>Project overview</h4><ul><li>For reporting lost belongings around campus.</li><li>Helps people find items that have been reported.</li></ul></div></div></div></article>
+      <article class="case case--flip" data-reveal aria-labelledby="p6-title"><div class="case__visual" data-tilt aria-hidden="true"><div class="project-art"><span class="project-art__index">PROJECT 06</span><strong>MU Event Hub</strong><span class="project-art__line"></span><small>Events / Database</small></div></div><div class="case__body"><p class="case__kicker mono"><span>06</span><span>Academic project</span></p><h3 class="case__title" id="p6-title">MU Event Hub<small class="case__sub">Web Development · JavaScript · Database</small></h3><p class="case__problem">A university event platform for sharing and managing event information.</p><ul class="case__metrics" role="list"><li><b>University</b><span>Community</span></li><li><b>JavaScript</b><span>Interaction</span></li><li><b>Database</b><span>Data</span></li></ul><button class="case__toggle" type="button" aria-expanded="false" aria-controls="p6-more"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg> Case study</button><div class="case__more" id="p6-more" data-collapsible><div><h4>Project overview</h4><ul><li>Shares university event information.</li><li>Supports event information management.</li></ul></div></div></div></article>
+      <article class="case" data-reveal aria-labelledby="p7-title"><div class="case__visual" data-tilt aria-hidden="true"><div class="project-art"><span class="project-art__index">PROJECT 07</span><strong>Ashmeera Empoweres</strong><span class="project-art__line"></span><small>Python / Flask</small></div></div><div class="case__body"><p class="case__kicker mono"><span>07</span><span>Personal project</span></p><h3 class="case__title" id="p7-title">Ashmeera Empoweres<small class="case__sub">Python · Flask · HTML · CSS</small></h3><p class="case__problem">A Flask web app and hands-on Python web development project.</p><ul class="case__metrics" role="list"><li><b>Python</b><span>Language</span></li><li><b>Flask</b><span>Framework</span></li><li><b>Web</b><span>Application</span></li></ul><button class="case__toggle" type="button" aria-expanded="false" aria-controls="p7-more"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg> Case study</button><div class="case__more" id="p7-more" data-collapsible><div><h4>Project overview</h4><ul><li>Built as a Python web application using Flask.</li><li>Hands-on practice with web development.</li></ul></div></div></div></article>
+      <article class="case case--flip" data-reveal aria-labelledby="p8-title"><div class="case__visual" data-tilt aria-hidden="true"><div class="project-art"><span class="project-art__index">PROJECT 08</span><strong>Campus Cleaning</strong><span class="project-art__line"></span><small>Laravel / MySQL</small></div></div><div class="case__body"><p class="case__kicker mono"><span>08</span><span>Academic project</span></p><h3 class="case__title" id="p8-title">Campus Cleaning<small class="case__sub">PHP · Laravel · MySQL</small></h3><p class="case__problem">Campus cleaning management with Laravel and database functionality.</p><ul class="case__metrics" role="list"><li><b>PHP</b><span>Language</span></li><li><b>Laravel</b><span>Framework</span></li><li><b>MySQL</b><span>Database</span></li></ul><button class="case__toggle" type="button" aria-expanded="false" aria-controls="p8-more"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg> Case study</button><div class="case__more" id="p8-more" data-collapsible><div><h4>Project overview</h4><ul><li>Campus cleaning management project.</li><li>Uses Laravel and database functionality.</li></ul></div></div></div></article>
+    </div></section>
+    <section class="section" id="skills" aria-labelledby="skills-title"><div class="container"><header class="section-head"><p class="section-index" data-reveal><b>04</b> Learning</p><h2 class="section-title" id="skills-title" data-reveal>Areas I’m <em>exploring.</em></h2><p class="section-lede" data-reveal>Technologies learned and used across academic and personal projects.</p></header><div class="skills__grid">
+      <section class="panel panel--wide" data-reveal><h3 class="panel__title"><span class="mono">01</span>Languages</h3><ul class="skillset" role="list"><li><button type="button" class="skill skill--xl" data-note="Used across academic and personal projects.">C</button></li><li><button type="button" class="skill skill--xl" data-note="Used in web development projects, including Flask applications.">Python</button></li><li><button type="button" class="skill" data-note="Explored in web development projects.">PHP</button></li><li><button type="button" class="skill" data-note="Explored through programming coursework.">Java</button></li><li><button type="button" class="skill" data-note="Explored through programming coursework.">C#</button></li></ul><p class="panel__note">Select a technology to see where I’ve used it.</p></section>
+      <section class="panel" data-reveal><h3 class="panel__title"><span class="mono">02</span>Frontend &amp; web</h3><ul class="skillset" role="list"><li><button type="button" class="skill" data-note="Used across web project work.">HTML</button></li><li><button type="button" class="skill" data-note="Used across web project work.">CSS</button></li><li><button type="button" class="skill" data-note="Used across interactive web projects.">JavaScript</button></li></ul><p class="panel__note">Web technologies used across my projects.</p></section>
+      <section class="panel" data-reveal><h3 class="panel__title"><span class="mono">03</span>Frameworks &amp; apps</h3><ul class="skillset" role="list"><li><button type="button" class="skill" data-note="Used in a Python web development project.">Flask</button></li><li><button type="button" class="skill" data-note="Used for campus cleaning management.">Laravel</button></li><li><button type="button" class="skill" data-note="Explored in mobile application development.">Flutter</button></li><li><button type="button" class="skill" data-note="Explored in mobile application development.">Kotlin</button></li></ul><p class="panel__note">Frameworks used while learning application development.</p></section>
+      <section class="panel panel--wide panel--fund" data-reveal><h3 class="panel__title"><span class="mono">04</span>Databases &amp; fundamentals</h3><ul class="skillset" role="list"><li><button type="button" class="skill" data-note="Used across database-backed academic projects.">MySQL</button></li><li><button type="button" class="skill" data-note="Used with the Study Planner project.">SQLite3</button></li><li><button type="button" class="skill" data-note="A study area within my BCA coursework.">DBMS</button></li></ul><p class="panel__note">Technologies explored in my academic project work.</p></section>
+    </div></div></section>
+    <section class="section" id="journey" aria-labelledby="journey-title"><div class="container"><header class="section-head"><p class="section-index" data-reveal><b>05</b> Learning journey</p><h2 class="section-title" id="journey-title" data-reveal>Building skills through <em>practice.</em></h2></header><div class="about__grid"><div class="about__intro" data-reveal><p class="lead">My learning journey is shaped by my BCA studies and hands-on work across eight academic and personal projects.</p><p>I have explored Python, PHP, Java, C, C#, web development, Flutter, Kotlin, databases, Flask, and Laravel. I continue building my skills one project at a time.</p><p><a class="link-u" href="https://github.com/AshishRaunakThakur" target="_blank" rel="noopener">Browse my GitHub projects <svg class="icon" aria-hidden="true"><use href="#i-ext"/></svg></a></p></div><div class="milestones" data-reveal><h3 class="mono milestones__title">BCA · Marwadi University</h3><ol class="milestones__list" role="list"><li><time class="mono">2024</time><p>Started the Bachelor of Computer Applications program.</p></li><li><time class="mono">2027</time><p>Expected graduation year.</p></li><li><time class="mono">Today</time><p>Continuing to learn through projects.</p></li></ol></div></div></div></section>
+    <section class="section contact" id="contact" aria-labelledby="contact-title"><div class="contact__glow" aria-hidden="true"></div><div class="container"><p class="section-index" data-reveal><b>06</b> Contact</p><h2 class="contact__title" id="contact-title"><span class="line-mask"><span>Let’s learn</span></span><span class="line-mask"><span>and build <em>together.</em></span></span></h2><p class="contact__lede" data-reveal>Find me around the web.</p><div class="contact__mail" data-reveal><a class="btn btn--primary contact__email" href="mailto:ashishraunksmp@gmail.com" data-magnetic><svg aria-hidden="true"><use href="#i-mail"/></svg>ashishraunksmp@gmail.com</a><button class="btn btn--ghost" type="button" data-copy="ashishraunksmp@gmail.com" data-magnetic><svg aria-hidden="true" data-copy-icon><use href="#i-copy"/></svg><span data-copy-label>Copy email</span></button><span class="visually-hidden" role="status" data-copy-status></span></div><ul class="contact__links" role="list" data-reveal>
+      <li><a href="https://github.com/AshishRaunakThakur" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-github"/></svg><span>GitHub</span><small class="mono">@AshishRaunakThakur</small><svg class="icon contact__arr" aria-hidden="true"><use href="#i-ext"/></svg></a></li>
+      <li><a href="https://www.linkedin.com/in/ashish-raunak-6b670734b/" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-linkedin"/></svg><span>LinkedIn</span><small class="mono">Ashish Raunak</small><svg class="icon contact__arr" aria-hidden="true"><use href="#i-ext"/></svg></a></li>
+      <li><a href="https://x.com/AshishRaunak03" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-ext"/></svg><span>X</span><small class="mono">@AshishRaunak03</small><svg class="icon contact__arr" aria-hidden="true"><use href="#i-ext"/></svg></a></li>
+      <li><a href="https://www.instagram.com/_.ashish.thakur._/" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-ext"/></svg><span>Instagram</span><small class="mono">@_.ashish.thakur._</small><svg class="icon contact__arr" aria-hidden="true"><use href="#i-ext"/></svg></a></li>
+      <li><a href="https://ashishraunak.vercel.app/Ashish_Raunak_Resume.pdf" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-ext"/></svg><span>Resume PDF</span><small class="mono">View PDF</small><svg class="icon contact__arr" aria-hidden="true"><use href="#i-ext"/></svg></a></li>
+    </ul></div></section>
+  </main>
+  <footer class="footer"><div class="container footer__inner"><svg class="signature" viewBox="0 0 360 90" role="img" aria-label="Ashish Raunak"><text x="4" y="66">Ashish</text></svg><p class="mono">© <span data-year>2026</span> Ashish Raunak · Learning one project at a time.</p><a class="footer__top" href="#top"><span class="mono">Back to top</span><svg class="icon" aria-hidden="true"><use href="#i-up"/></svg></a></div></footer>
+</body>
+</html>
