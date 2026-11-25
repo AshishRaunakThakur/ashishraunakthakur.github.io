@@ -246,7 +246,7 @@
    Motion utilities
    ========================================================================== */
 @layer utilities {
-  /* Scroll reveals: only hide content once JS is confirmed running */
+  /* Scroll reveals: the module enables these only after it loads successfully. */
   .js [data-reveal] {
     opacity: 0;
     transform: translate3d(0, 28px, 0);

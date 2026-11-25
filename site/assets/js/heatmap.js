@@ -13,6 +13,22 @@ const fmtMonth = new Intl.DateTimeFormat("en-GB", { month: "short", timeZone: "U
 const toDate = (iso) => new Date(`${iso}T00:00:00Z`);
 const plural = (n, word) => `${n.toLocaleString("en-GB")} ${word}${n === 1 ? "" : "s"}`;
 
+function demoData() {
+  // Deterministic pseudo-random series — used only when real data is unavailable.
+  const end = new Date(Date.UTC(new Date().getUTCFullYear(), new Date().getUTCMonth(), new Date().getUTCDate()));
+  const start = new Date(end.getTime() - 364 * DAY_MS);
+  start.setUTCDate(start.getUTCDate() - start.getUTCDay());
+  let seed = 7;
+  const rand = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+  const days = [];
+  for (let t = start.getTime(); t <= end.getTime(); t += DAY_MS) {
+    const r = rand();
+    const count = r < 0.45 ? 0 : Math.round(r * r * 14);
+    days.push({ date: new Date(t).toISOString().slice(0, 10), count, level: count === 0 ? 0 : Math.min(4, Math.ceil(count / 3.5)) });
+  }
+  return { demo: true, days };
+}
+
 async function loadData() {
   try {
     const res = await fetch("data/contributions.json", { cache: "no-cache" });
@@ -21,7 +37,7 @@ async function loadData() {
     if (!Array.isArray(json.days) || json.days.length === 0) throw new Error("empty");
     return { demo: false, ...json };
   } catch {
-    return null;
+    return demoData();
   }
 }
 
@@ -48,24 +64,17 @@ export async function initHeatmap(root) {
   const source = root.querySelector("[data-heatmap-source]");
   const scroller = root.querySelector("[data-heatmap-scroller]");
   const stat = (k) => root.querySelector(`[data-stat="${k}"]`);
-  const empty = root.querySelector("[data-heatmap-empty]");
 
   const data = await loadData();
-  if (!data) {
-    if (source) source.innerHTML = '<span class="badge">Awaiting data</span>Real GitHub activity will appear after the public calendar refreshes.';
-    if (empty) empty.hidden = false;
-    return;
-  }
-  if (empty) empty.hidden = true;
   const days = data.days;
-  const sourceLabel = data.demo ? "illustrative sample data" : "GitHub contribution calendar";
+  const sourceLabel = data.demo ? "illustrative sample data" : "public GitHub contribution calendar";
 
   /* ---- Source line ---- */
   if (data.demo) {
     source.innerHTML = `<span class="badge badge--demo">Demo</span>Illustrative sample — not real activity. Live data could not be loaded.`;
   } else {
     const when = data.fetchedAt ? fmtShort.format(new Date(data.fetchedAt)) : "unknown date";
-    source.innerHTML = `<span class="badge">Real data</span>GitHub calendar for <a class="link-u" href="https://github.com/${data.login}" target="_blank" rel="noopener">@${data.login}</a> · snapshot ${when}`;
+    source.innerHTML = `<span class="badge">Real data</span>Public GitHub calendar for <a class="link-u" href="https://github.com/${data.login}" target="_blank" rel="noopener">@${data.login}</a> · snapshot ${when}`;
   }
 
   /* ---- Build grid: one row element per weekday, cells placed explicitly ---- */
