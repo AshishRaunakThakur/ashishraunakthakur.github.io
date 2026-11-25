@@ -220,7 +220,7 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" wid
   ${streakSvg}
 
   <g class="hm-fade">
-    <text class="hm-mono" x="56" y="382" font-size="10.5" fill="#B6A3AC">Source: public GitHub contribution calendar for @${esc(data.login)} · snapshot ${fetched} · refreshed daily</text>
+    <text class="hm-mono" x="56" y="382" font-size="10.5" fill="#B6A3AC">Source: GitHub contribution calendar for @${esc(data.login)} · snapshot ${fetched} · checked hourly</text>
     <text class="hm-mono" x="${legendX}" y="382" font-size="10.5" fill="#B6A3AC">Less</text>
     ${legend}
     <text class="hm-mono" x="${legendX + 36 + 5 * 18 + 4}" y="382" font-size="10.5" fill="#B6A3AC">More</text>

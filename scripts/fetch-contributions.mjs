@@ -83,15 +83,30 @@ async function main() {
     }
   }
 
+  // A zero-count day must always use the empty calendar level.
+  days = days.map((d) => ({ ...d, level: d.count > 0 ? d.level : 0 }));
+
+  const file = path.resolve(OUTPUT);
+  let previous;
+  try {
+    previous = JSON.parse(fs.readFileSync(file, "utf8"));
+  } catch {}
+  const sameDays = previous?.login === LOGIN
+    && Array.isArray(previous.days)
+    && previous.days.length === days.length
+    && previous.days.every((d, i) =>
+      d.date === days[i].date && d.count === days[i].count && d.level === days[i].level
+    );
+  const sameSource = previous?.source === `github.com/${LOGIN}` && previous?.method === method;
   const out = {
     source: `github.com/${LOGIN}`,
     method,
     login: LOGIN,
-    fetchedAt: new Date().toISOString(),
+    // Keep unchanged snapshots byte-stable so hourly checks do not create empty commits.
+    fetchedAt: sameDays && sameSource ? previous.fetchedAt : new Date().toISOString(),
     total: days.reduce((s, d) => s + d.count, 0),
     days,
   };
-  const file = path.resolve(OUTPUT);
   fs.mkdirSync(path.dirname(file), { recursive: true });
   fs.writeFileSync(file, JSON.stringify(out) + "\n", "utf8");
   console.log(`Wrote ${days.length} days (${out.total} contributions) via ${method} → ${OUTPUT}`);
