@@ -1,6 +1,6 @@
 (function () {
   if (location.protocol !== "file:") return;
-  const snapshot = {"login":"AshishRaunakThakur","fetchedAt":"2026-11-25T14:11:33+00:00","days":368,"from":"2025-11-23","pairs":"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAiAAAAAAAAAAGAGGGGGGGGGGGGGGGGGGGGGGGGAGAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAnAAAMXXGRAAMARAGRGMGMGGRGGGAGGGGGGGGGGAGGXGGGRGGi"};
+  const snapshot = {"login":"AshishRaunakThakur","fetchedAt":"2026-11-25T20:05:17.422Z","days":368,"from":"2025-11-23","pairs":"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAiAAAAAAAAAAGAGGGGGGGGGGGGGGGGGGGGGGGGAGAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAnAAAMXXGRAAMARAGRGMGMGGRGGGAGGGGGGGGGGAGGXGGGRGG"};
   const root = document.querySelector("[data-heatmap]");
   if (!root) return;
   const source = root.querySelector("[data-heatmap-source]");
@@ -25,7 +25,7 @@
   const fmtMonth = new Intl.DateTimeFormat("en-GB", { month: "short", timeZone: "UTC" });
   const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   const fetched = snapshot.fetchedAt ? fmtShort.format(new Date(snapshot.fetchedAt)) : "recently";
-  if (source) source.innerHTML = '<span class="badge">Live data</span>Public GitHub calendar for <a href="https://github.com/' + snapshot.login + '" target="_blank" rel="noopener">@' + snapshot.login + '</a> · snapshot ' + fetched;
+  if (source) source.innerHTML = '<span class="badge">Live data</span>GitHub calendar for <a href="https://github.com/' + snapshot.login + '" target="_blank" rel="noopener">@' + snapshot.login + '</a> · snapshot ' + fetched;
   if (empty) empty.hidden = true;
 
   const offset = days[0].date.getUTCDay();
