@@ -3,15 +3,9 @@ name: Refresh profile heatmap
 on:
   push:
     branches: [main]
-    paths:
-      - "README.md"
-      - "scripts/fetch-contributions.mjs"
-      - "scripts/embed-local-contributions.mjs"
-      - "scripts/build-heatmap-svg.mjs"
-      - ".github/workflows/profile-heatmap.yml"
   schedule:
-    # Daily at 05:30 UTC, before the Pages deploy at 06:00
-    - cron: "30 5 * * *"
+    # Check each hour so today's square can appear as empty before a contribution.
+    - cron: "0 * * * *"
   workflow_dispatch: {}
 
 permissions:
@@ -31,23 +25,19 @@ jobs:
         with:
           node-version: 22
 
-      # Optional read:user token includes shared private contribution counts.
-      # The token stays in Actions secrets and is never written to the site.
+      # Public calendar data only; no token is written anywhere.
       - name: Fetch contributions
         env:
           GH_USERNAME: ${{ github.repository_owner }}
-          GH_TOKEN: ${{ secrets.PROFILE_GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.PROFILE_READ_TOKEN }}
         run: node scripts/fetch-contributions.mjs
-
-      - name: Build local contribution fallback
-        run: node scripts/embed-local-contributions.mjs
 
       - name: Render heatmap SVG
         run: node scripts/build-heatmap-svg.mjs
 
       - name: Commit if changed
         run: |
-          git add site/data/contributions.json site/assets/js/local-heatmap.js assets/contribution-snake.svg
+          git add site/data/contributions.json assets/contribution-snake.svg
           if git diff --cached --quiet; then
             echo "No changes."
             exit 0

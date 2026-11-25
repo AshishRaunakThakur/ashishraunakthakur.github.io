@@ -6,7 +6,6 @@ on:
     paths:
       - "site/**"
       - "scripts/fetch-contributions.mjs"
-      - "scripts/embed-local-contributions.mjs"
       - ".github/workflows/pages.yml"
   schedule:
     # Refresh the contribution heatmap once a day (06:00 UTC)
@@ -32,16 +31,13 @@ jobs:
         with:
           node-version: 22
 
-      # Uses PROFILE_GITHUB_TOKEN when configured so the calendar can include
-      # shared private contribution counts. Falls back to the public calendar.
+      # Refreshes site/data/contributions.json from the public contribution
+      # calendar. If the fetch fails, the committed snapshot is kept.
       - name: Refresh contribution data
         env:
           GH_USERNAME: ${{ github.repository_owner }}
-          GH_TOKEN: ${{ secrets.PROFILE_GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.PROFILE_READ_TOKEN }}
         run: node scripts/fetch-contributions.mjs
-
-      - name: Embed local contribution snapshot
-        run: node scripts/embed-local-contributions.mjs
 
       - uses: actions/configure-pages@v5
 
