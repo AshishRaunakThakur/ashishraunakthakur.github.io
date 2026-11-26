@@ -7,8 +7,9 @@
  * - Without a token, reads the public calendar fragment at
  *   github.com/users/<login>/contributions (no auth needed).
  *
- * If both fail, the existing snapshot is left untouched and the script
- * exits 0 so a deploy never breaks because of a network hiccup.
+ * If both fail, the existing snapshot is left untouched. Set
+ * REQUIRE_GRAPHQL_CONTRIBUTIONS=true to fail instead of publishing public-only
+ * counts when a profile-authorized calendar is required.
  *
  * Env: GH_USERNAME (default AshishRaunakThakur), GH_TOKEN (optional),
  *      OUTPUT_PATH (default site/data/contributions.json)
@@ -20,6 +21,7 @@ import path from "node:path";
 const LOGIN = process.env.GH_USERNAME || "AshishRaunakThakur";
 const TOKEN = process.env.GH_TOKEN || process.env.GITHUB_TOKEN;
 const OUTPUT = process.env.OUTPUT_PATH || "site/data/contributions.json";
+const REQUIRE_GRAPHQL = process.env.REQUIRE_GRAPHQL_CONTRIBUTIONS === "true";
 
 async function viaGraphQL() {
   const query = `query($login:String!){user(login:$login){contributionsCollection{contributionCalendar{totalContributions weeks{contributionDays{date contributionCount contributionLevel}}}}}}`;
@@ -68,17 +70,28 @@ async function viaPublicCalendar() {
 async function main() {
   let days;
   let method;
+  if (REQUIRE_GRAPHQL && !TOKEN) {
+    console.error("A PROFILE_READ_TOKEN with read:user access is required to fetch the full GitHub contribution calendar.");
+    process.exitCode = 1;
+    return;
+  }
   try {
     if (!TOKEN) throw new Error("no token");
     days = await viaGraphQL();
     method = "GitHub GraphQL API";
   } catch (err) {
+    if (REQUIRE_GRAPHQL) {
+      console.error(`Required GitHub GraphQL contribution fetch failed: ${err.message}. Check that PROFILE_READ_TOKEN belongs to ${LOGIN} and has read:user access.`);
+      process.exitCode = 1;
+      return;
+    }
     if (TOKEN) console.warn(`GraphQL failed (${err.message}); trying public calendar`);
     try {
       days = await viaPublicCalendar();
       method = "public GitHub contribution calendar";
     } catch (err2) {
       console.warn(`Could not refresh contributions (${err2.message}); keeping existing snapshot.`);
+      if (process.env.REQUIRE_FRESH_CONTRIBUTIONS === "true") process.exitCode = 1;
       return;
     }
   }
