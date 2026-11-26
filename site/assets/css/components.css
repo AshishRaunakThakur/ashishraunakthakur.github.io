@@ -204,6 +204,10 @@
     gap: var(--space-m);
     margin-bottom: var(--space-l);
   }
+  .heatmap__glance { margin-bottom: var(--space-l); }
+  .heatmap__glance h3 { margin-bottom: var(--space-s); color: var(--accent); }
+  .heatmap__stats--glance { margin-bottom: var(--space-l); }
+  .heatmap__stats--glance dd { font-size: var(--step-2); }
   .heatmap__ranges {
     display: inline-flex;
     padding: 4px;
