@@ -1,8 +1,5 @@
 // Contribution heatmap.
-// Reads data/contributions.json — a snapshot of the public GitHub
-// contribution calendar written by scripts/fetch-contributions.mjs (and
-// refreshed by the Pages workflow). If that file can't be loaded, the map
-// falls back to clearly labelled illustrative data.
+// Fetches the public GitHub contribution calendar when the portfolio opens.
 
 const DAY_MS = 86_400_000;
 const WEEKDAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -13,31 +10,37 @@ const fmtMonth = new Intl.DateTimeFormat("en-GB", { month: "short", timeZone: "U
 const toDate = (iso) => new Date(`${iso}T00:00:00Z`);
 const plural = (n, word) => `${n.toLocaleString("en-GB")} ${word}${n === 1 ? "" : "s"}`;
 
-function demoData() {
-  // Deterministic pseudo-random series — used only when real data is unavailable.
-  const end = new Date(Date.UTC(new Date().getUTCFullYear(), new Date().getUTCMonth(), new Date().getUTCDate()));
-  const start = new Date(end.getTime() - 364 * DAY_MS);
-  start.setUTCDate(start.getUTCDate() - start.getUTCDay());
-  let seed = 7;
-  const rand = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
-  const days = [];
-  for (let t = start.getTime(); t <= end.getTime(); t += DAY_MS) {
-    const r = rand();
-    const count = r < 0.45 ? 0 : Math.round(r * r * 14);
-    days.push({ date: new Date(t).toISOString().slice(0, 10), count, level: count === 0 ? 0 : Math.min(4, Math.ceil(count / 3.5)) });
-  }
-  return { demo: true, days };
+async function loadData() {
+  const res = await fetch(`https://github-contributions-api.jogruber.de/v4/AshishRaunakThakur?y=last&_=${Date.now()}`, { cache: "no-store" });
+  if (!res.ok) throw new Error(`Contribution service ${res.status}`);
+  const json = await res.json();
+  if (!Array.isArray(json.contributions) || json.contributions.length === 0) throw new Error("empty contribution data");
+  return json.contributions.map((day) => ({ date: day.date, count: Number(day.count), level: Number(day.level) }));
 }
 
-async function loadData() {
+async function loadGitHubGlance(root) {
+  const nodes = Object.fromEntries(["repos", "stars", "followers", "following"].map((key) => [key, root.querySelector(`[data-github-stat="${key}"]`)]));
   try {
-    const res = await fetch("data/contributions.json", { cache: "no-cache" });
-    if (!res.ok) throw new Error(res.status);
-    const json = await res.json();
-    if (!Array.isArray(json.days) || json.days.length === 0) throw new Error("empty");
-    return { demo: false, ...json };
+    const headers = { Accept: "application/vnd.github+json" };
+    const profileResponse = await fetch("https://api.github.com/users/AshishRaunakThakur", { headers, cache: "no-store" });
+    if (!profileResponse.ok) throw new Error(`GitHub profile ${profileResponse.status}`);
+    const profile = await profileResponse.json();
+    nodes.repos.textContent = Number(profile.public_repos).toLocaleString("en-GB");
+    nodes.followers.textContent = Number(profile.followers).toLocaleString("en-GB");
+    nodes.following.textContent = Number(profile.following).toLocaleString("en-GB");
+
+    let page = 1, stars = 0, repos = [];
+    do {
+      const response = await fetch(`https://api.github.com/users/AshishRaunakThakur/repos?type=owner&sort=updated&per_page=100&page=${page}`, { headers, cache: "no-store" });
+      if (!response.ok) throw new Error(`GitHub repositories ${response.status}`);
+      repos = await response.json();
+      stars += repos.reduce((sum, repo) => sum + Number(repo.stargazers_count || 0), 0);
+      page++;
+    } while (repos.length === 100 && page <= 10);
+    nodes.stars.textContent = stars.toLocaleString("en-GB");
   } catch {
-    return demoData();
+    root.querySelector("[data-github-glance]").dataset.unavailable = "true";
+    Object.values(nodes).forEach((node) => { if (node.textContent === "—") node.textContent = "Unavailable"; });
   }
 }
 
@@ -65,17 +68,20 @@ export async function initHeatmap(root) {
   const scroller = root.querySelector("[data-heatmap-scroller]");
   const stat = (k) => root.querySelector(`[data-stat="${k}"]`);
 
-  const data = await loadData();
-  const days = data.days;
-  const sourceLabel = data.demo ? "illustrative sample data" : "public GitHub contribution calendar";
+  loadGitHubGlance(root);
+  let days;
+  try {
+    days = await loadData();
+  } catch {
+    source.textContent = "Live GitHub contribution data could not be loaded. Please try again later.";
+    root.querySelectorAll('[data-stat]').forEach((el) => { el.textContent = "Unavailable"; });
+    grid.setAttribute("aria-label", "Live GitHub contribution data is unavailable.");
+    return;
+  }
+  const sourceLabel = "live public GitHub contribution calendar";
 
   /* ---- Source line ---- */
-  if (data.demo) {
-    source.innerHTML = `<span class="badge badge--demo">Demo</span>Illustrative sample — not real activity. Live data could not be loaded.`;
-  } else {
-    const when = data.fetchedAt ? fmtShort.format(new Date(data.fetchedAt)) : "unknown date";
-    source.innerHTML = `<span class="badge">Real data</span>Public GitHub calendar for <a class="link-u" href="https://github.com/${data.login}" target="_blank" rel="noopener">@${data.login}</a> · snapshot ${when}`;
-  }
+  source.innerHTML = `<span class="badge">Live data</span>Public GitHub calendar for <a class="link-u" href="https://github.com/AshishRaunakThakur" target="_blank" rel="noopener">@AshishRaunakThakur</a> · fetched when this page opens`;
 
   /* ---- Build grid: one row element per weekday, cells placed explicitly ---- */
   const offset = toDate(days[0].date).getUTCDay();
