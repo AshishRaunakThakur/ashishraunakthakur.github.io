@@ -302,6 +302,15 @@
         </header>
 
         <div class="heatmap" data-heatmap data-reveal="fade">
+          <div class="heatmap__glance" data-github-glance aria-live="polite">
+            <h3 class="mono">GitHub at a glance</h3>
+            <dl class="heatmap__stats heatmap__stats--glance">
+              <div><dt class="mono">Public repos</dt><dd data-github-stat="repos">—</dd></div>
+              <div><dt class="mono">Stars earned</dt><dd data-github-stat="stars">—</dd></div>
+              <div><dt class="mono">Followers</dt><dd data-github-stat="followers">—</dd></div>
+              <div><dt class="mono">Following</dt><dd data-github-stat="following">—</dd></div>
+            </dl>
+          </div>
           <div class="heatmap__top">
             <div class="heatmap__ranges" role="group" aria-label="Time range">
               <button type="button" data-range="all" aria-pressed="true">Full year</button>
@@ -715,7 +724,7 @@
   <footer class="footer">
     <div class="container footer__inner">
       <svg class="signature" viewBox="0 0 360 90" role="img" aria-label="Ashish Raunak">
-        <text x="4" y="70">AR</text>
+        <text x="4" y="70">AshishRaunak</text>
       </svg>
       <p class="mono">© <span data-year>2026</span> Ashish Raunak · Learning one project at a time.</p>
       <a class="footer__top" href="#top">
