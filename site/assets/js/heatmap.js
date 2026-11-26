@@ -1,5 +1,5 @@
 // Contribution heatmap.
-// Fetches the public GitHub contribution calendar when the portfolio opens.
+// Reads the latest real GitHub contribution calendar refreshed by GitHub Actions.
 
 const DAY_MS = 86_400_000;
 const WEEKDAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -11,11 +11,16 @@ const toDate = (iso) => new Date(`${iso}T00:00:00Z`);
 const plural = (n, word) => `${n.toLocaleString("en-GB")} ${word}${n === 1 ? "" : "s"}`;
 
 async function loadData() {
-  const res = await fetch(`https://github-contributions-api.jogruber.de/v4/AshishRaunakThakur?y=last&_=${Date.now()}`, { cache: "no-store" });
-  if (!res.ok) throw new Error(`Contribution service ${res.status}`);
+  const res = await fetch(`data/contributions.json?_=${Date.now()}`, { cache: "no-store" });
+  if (!res.ok) throw new Error(`Contribution data ${res.status}`);
   const json = await res.json();
-  if (!Array.isArray(json.contributions) || json.contributions.length === 0) throw new Error("empty contribution data");
-  return json.contributions.map((day) => ({ date: day.date, count: Number(day.count), level: Number(day.level) }));
+  if (json.login !== "AshishRaunakThakur" || json.method !== "GitHub GraphQL API" || !Array.isArray(json.days) || json.days.length === 0) {
+    throw new Error("missing or incorrect contribution data");
+  }
+  if (!json.days.every((day) => /^\d{4}-\d{2}-\d{2}$/.test(day.date) && Number.isFinite(Number(day.count)) && Number.isFinite(Number(day.level)))) {
+    throw new Error("invalid contribution data");
+  }
+  return json;
 }
 
 async function loadGitHubGlance(root) {
@@ -69,19 +74,22 @@ export async function initHeatmap(root) {
   const stat = (k) => root.querySelector(`[data-stat="${k}"]`);
 
   loadGitHubGlance(root);
+  let data;
   let days;
   try {
-    days = await loadData();
+    data = await loadData();
+    days = data.days;
   } catch {
-    source.textContent = "Live GitHub contribution data could not be loaded. Please try again later.";
+    source.textContent = "Verified GitHub contribution data is unavailable. The portfolio needs a successful profile-authorized refresh.";
     root.querySelectorAll('[data-stat]').forEach((el) => { el.textContent = "Unavailable"; });
-    grid.setAttribute("aria-label", "Live GitHub contribution data is unavailable.");
+    grid.setAttribute("aria-label", "Verified GitHub contribution data is unavailable.");
     return;
   }
-  const sourceLabel = "live public GitHub contribution calendar";
+  const sourceLabel = "public GitHub contribution calendar";
 
   /* ---- Source line ---- */
-  source.innerHTML = `<span class="badge">Live data</span>Public GitHub calendar for <a class="link-u" href="https://github.com/AshishRaunakThakur" target="_blank" rel="noopener">@AshishRaunakThakur</a> · fetched when this page opens`;
+  const fetched = data.fetchedAt ? fmtShort.format(new Date(data.fetchedAt)) : "unknown date";
+  source.innerHTML = `<span class="badge">Real data</span>GitHub calendar for <a class="link-u" href="https://github.com/${data.login}" target="_blank" rel="noopener">@${data.login}</a> · refreshed ${fetched}`;
 
   /* ---- Build grid: one row element per weekday, cells placed explicitly ---- */
   const offset = toDate(days[0].date).getUTCDay();
