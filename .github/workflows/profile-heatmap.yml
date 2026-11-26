@@ -30,6 +30,8 @@ jobs:
         env:
           GH_USERNAME: ${{ github.repository_owner }}
           GH_TOKEN: ${{ secrets.PROFILE_READ_TOKEN }}
+          REQUIRE_FRESH_CONTRIBUTIONS: "true"
+          REQUIRE_GRAPHQL_CONTRIBUTIONS: "true"
         run: node scripts/fetch-contributions.mjs
 
       - name: Render heatmap SVG

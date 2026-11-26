@@ -8,8 +8,8 @@ on:
       - "scripts/fetch-contributions.mjs"
       - ".github/workflows/pages.yml"
   schedule:
-    # Refresh the contribution heatmap once a day (06:00 UTC)
-    - cron: "0 6 * * *"
+    # Publish the latest verified GitHub contribution calendar each hour.
+    - cron: "0 * * * *"
   workflow_dispatch: {}
 
 permissions:
@@ -31,12 +31,14 @@ jobs:
         with:
           node-version: 22
 
-      # Refreshes site/data/contributions.json from the public contribution
-      # calendar. If the fetch fails, the committed snapshot is kept.
+      # Refresh site/data/contributions.json before each deployment. Fail rather
+      # than publish an old contribution calendar if GitHub cannot be reached.
       - name: Refresh contribution data
         env:
           GH_USERNAME: ${{ github.repository_owner }}
           GH_TOKEN: ${{ secrets.PROFILE_READ_TOKEN }}
+          REQUIRE_FRESH_CONTRIBUTIONS: "true"
+          REQUIRE_GRAPHQL_CONTRIBUTIONS: "true"
         run: node scripts/fetch-contributions.mjs
 
       - uses: actions/configure-pages@v5
